@@ -121,8 +121,14 @@ if [ ! -f .step4 ]; then
   cp -R /Volumes/Skype/Skype.app /Applications
   hdiutil unmount /Volumes/Skype
 
+  echo "Installing Toggl..."
+  curl -o packages/Toggl.dmg https://www.dropbox.com/s/7bbk9cmqqx02h20/Toggl.dmg
+  hdiutil mount "packages/Toggl.dmg"
+  cp -R /Volumes/TogglDesktop/TogglDesktop.app /Applications
+  hdiutil unmount /Volumes/TogglDesktop
+
   # App Store
-  for app in divvy todoist; do
+  for app in divvy todoist KyPass; do
     echo "Install ${app} from appStore and press Enter"
     read
   done

@@ -12,7 +12,6 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 if [ ! -f .step0 ]; then
   echo "Updating system..."
   sudo softwareupdate -i -a
-  mkdir packages
   touch .step0
   echo "Restart is required, press Enter"
   read
@@ -22,7 +21,7 @@ fi
 # Enable TRIM
 if [ ! -f .step1 ]; then
   echo "Installing TRIM Enabler..."
-  curl -o packages/TrimEnabler.dmg https://www.dropbox.com/s/r1z1vt8xy1qey9h/TrimEnabler.dmg
+  curl -L -o packages/TrimEnabler.dmg https://www.dropbox.com/s/r1z1vt8xy1qey9h/TrimEnabler.dmg
   hdiutil mount packages/TrimEnabler.dmg
   cp -r "/Volumes/Trim Enabler/Trim Enabler.app" /Applications
   hdiutil unmount "/Volumes/Trim Enabler/Trim Enabler.app"
@@ -83,7 +82,7 @@ fi
 # Install apps
 if [ ! -f .step4 ]; then
   echo "Installing Alfred..."
-  curl -o packages/alfred2.zip https://www.dropbox.com/s/humo6ewd7ylj2es/alfred2.zip
+  curl -L -o packages/alfred2.zip https://www.dropbox.com/s/humo6ewd7ylj2es/alfred2.zip
   unzip packages/alfred2.zip -d packages
   cp -r "packages/Alfred 2.app" /Applications/
   # Disable spotlight GUI (without indexing)
@@ -93,36 +92,36 @@ if [ ! -f .step4 ]; then
   read
 
   echo "Installing Google Chrome..."
-  curl -o packages/googlechrome.dmg https://www.dropbox.com/s/5we7xp1szgw5ioq/googlechrome.dmg
+  curl -L -o packages/googlechrome.dmg https://www.dropbox.com/s/5we7xp1szgw5ioq/googlechrome.dmg
   hdiutil mount "packages/googlechrome.dmg"
   cp -R "/Volumes/Google Chrome/Google Chrome.app" /Applications/
   hdiutil unmount "/Volumes/Google Chrome"
 
   echo "Installing Firefox..."
-  curl -o packages/Firefox.dmg https://www.dropbox.com/s/xpf9l69tlmx0zmi/Firefox.dmg
+  curl -L -o packages/Firefox.dmg https://www.dropbox.com/s/xpf9l69tlmx0zmi/Firefox.dmg
   hdiutil mount "packages/Firefox.dmg"
   cp -R /Volumes/Firefox/Firefox.app /Applications
   hdiutil unmount /Volumes/Firefox
 
   echo "Installing Gimp..."
-  curl -o packages/Gimp.dmg https://www.dropbox.com/s/l9r5zegx0p1oxpz/Gimp.dmg
+  curl -L -o packages/Gimp.dmg https://www.dropbox.com/s/l9r5zegx0p1oxpz/Gimp.dmg
   hdiutil mount "packages/Gimp.dmg"
   cp -R /Volumes/Gimp*/GIMP.app /Applications
   hdiutil unmount /Volumes/Gimp*
 
   echo "Installing iTerm2..."
-  curl -o packages/iTerm2.zip https://www.dropbox.com/s/5urdahw84k96ygf/iTerm2.zip
+  curl -L -o packages/iTerm2.zip https://www.dropbox.com/s/5urdahw84k96ygf/iTerm2.zip
   unzip packages/iTerm2.zip -d packages
   cp -R packages/iTerm.app /Applications
 
   echo "Installing skype..."
-  curl -o packages/skype.dmg https://www.dropbox.com/s/mmypvqe20twf01x/skype.dmg
+  curl -L -o packages/skype.dmg https://www.dropbox.com/s/mmypvqe20twf01x/skype.dmg
   hdiutil mount "packages/skype.dmg"
   cp -R /Volumes/Skype/Skype.app /Applications
   hdiutil unmount /Volumes/Skype
 
   echo "Installing Toggl..."
-  curl -o packages/Toggl.dmg https://www.dropbox.com/s/7bbk9cmqqx02h20/Toggl.dmg
+  curl -L -o packages/Toggl.dmg https://www.dropbox.com/s/7bbk9cmqqx02h20/Toggl.dmg
   hdiutil mount "packages/Toggl.dmg"
   cp -R /Volumes/TogglDesktop/TogglDesktop.app /Applications
   hdiutil unmount /Volumes/TogglDesktop

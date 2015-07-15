@@ -126,6 +126,12 @@ if [ ! -f .step4 ]; then
   cp -R /Volumes/TogglDesktop/TogglDesktop.app /Applications
   hdiutil unmount /Volumes/TogglDesktop
 
+  echo "Installing Tunnelblick..."
+  curl -L -o packages/Tunnelblick.dmg https://www.dropbox.com/s/05sfv0pja3vl9d5/Tunnelblick.dmg
+  hdiutil mount "packages/Tunnelblick.dmg"
+  cp -R /Volumes/Tunnelblick/Tunnelblick.app /Applications
+  hdiutil unmount "/Volumes/Tunnelblick"
+
   # App Store
   for app in divvy todoist KyPass; do
     echo "Install ${app} from appStore and press Enter"

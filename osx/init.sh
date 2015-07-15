@@ -126,6 +126,11 @@ if [ ! -f .step4 ]; then
   cp -R /Volumes/TogglDesktop/TogglDesktop.app /Applications
   hdiutil unmount /Volumes/TogglDesktop
 
+  echo "Installing Spotify..."
+  curl -L -o packages/Spotify.zip https://www.dropbox.com/s/l1b9eia3sb3lrxu/Spotify.zip
+  unzip packages/Spotify.zip -d packages
+  open "packages/Install Spotify.app"
+
   echo "Installing Tunnelblick..."
   curl -L -o packages/Tunnelblick.dmg https://www.dropbox.com/s/05sfv0pja3vl9d5/Tunnelblick.dmg
   hdiutil mount "packages/Tunnelblick.dmg"

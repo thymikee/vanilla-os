@@ -137,6 +137,17 @@ if [ ! -f .step4 ]; then
   cp -R /Volumes/Tunnelblick/Tunnelblick.app /Applications
   hdiutil unmount "/Volumes/Tunnelblick"
 
+  echo "Installing Sublime Text 3..."
+  curl -L -o packages/Sublime.dmg https://www.dropbox.com/s/7e3key50blljy50/Sublime.dmg
+  hdiutil mount "packages/Sublime.dmg"
+  cp -R "/Volumes/Sublime Text/Sublime Text.app" /Applications
+  hdiutil unmount "/Volumes/Sublime Text"
+  mkdir -p "${HOME}/Library/Application Support/Sublime Text 3/Installed Packages"
+  mkdir -p "${HOME}/Library/Application Support/Sublime Text 3/Packages/User"
+  curl -L -o "${HOME}/Library/Application Support/Sublime Text 3/Installed Packages/Package Control.sublime-package" "https://sublime.wbond.net/Package%20Control.sublime-package"
+  cp "settings/Package Control.sublime-settings" "${HOME}/Library/Application Support/Sublime Text 3/Packages/User"
+  cp "settings/Preferences.sublime-settings" "${HOME}/Library/Application Support/Sublime Text 3/Packages/User/"
+
   # App Store
   for app in divvy todoist KyPass; do
     echo "Install ${app} from appStore and press Enter"

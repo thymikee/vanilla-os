@@ -240,10 +240,13 @@ if [ ! -f .step5 ]; then
   plutil -convert binary1 ~/Library/Preferences/com.googlecode.iterm2.plist
 
   for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "Dock" \
-    "Finder" "Mail" "Messages" "Safari" "SizeUp" "SystemUIServer" "Terminal" \
+    "Finder" "Mail" "Messages" "Safari" "SizeUp" "SystemUIServer" \
     "Transmission" "Twitter" "iCal"; do
     killall "${app}" > /dev/null 2>&1
   done
 
   touch .step5
+  echo "Restart is required, press Enter"
+  read
+  sudo reboot
 fi

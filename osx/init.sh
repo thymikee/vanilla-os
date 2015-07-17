@@ -114,6 +114,10 @@ if [ ! -f .step4 ]; then
   unzip packages/iTerm2.zip -d packages
   cp -R packages/iTerm.app /Applications
 
+  echo "Installing ownCloud..."
+  curl -L -o packages/ownCloud.pkg https://www.dropbox.com/s/k1cjbb2syw1g7z3/ownCloud.pkg
+  sudo installer -pkg packages/ownCloud.pkg -target /
+
   echo "Installing skype..."
   curl -L -o packages/skype.dmg https://www.dropbox.com/s/mmypvqe20twf01x/skype.dmg
   hdiutil mount "packages/skype.dmg"

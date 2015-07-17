@@ -91,6 +91,12 @@ if [ ! -f .step4 ]; then
   open "/Applications/Alfred 2.app"
   read
 
+  echo "Installing AirDroid"
+  curl -L -o packages/AirDroid.dmg https://www.dropbox.com/s/vd98t4dof399sez/AirDroid.dmg
+  hdiutil mount "packages/AirDroid.dmg"
+  cp -R /Volumes/AirDroid/AirDroid.app /Applications
+  hdiutil unmount /Volumes/AirDroid
+
   echo "Installing Google Chrome..."
   curl -L -o packages/googlechrome.dmg https://www.dropbox.com/s/5we7xp1szgw5ioq/googlechrome.dmg
   hdiutil mount "packages/googlechrome.dmg"

@@ -67,7 +67,7 @@ if [ ! -f .step3 ]; then
   echo "Installing rvm..."
   gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
   rm -rf ~/.rvm
-  curl -sSL https://get.rvm.io | bash
+  curl -sSL https://get.rvm.io | bash -s head
   # shellcheck disable=SC1091
   source ~/.rvm/scripts/rvm
 
@@ -93,12 +93,6 @@ if [ ! -f .step4 ]; then
   echo "Change Alfred 2 shortcut, enable clipboard history, activate powerpack and press Enter"
   open "/Applications/Alfred 2.app"
   read -r
-
-  echo "Installing AirDroid"
-  curl -L -o packages/AirDroid.dmg https://www.dropbox.com/s/vd98t4dof399sez/AirDroid.dmg
-  hdiutil mount "packages/AirDroid.dmg"
-  cp -R /Volumes/AirDroid/AirDroid.app /Applications
-  hdiutil unmount /Volumes/AirDroid
 
   echo "Installing Google Chrome..."
   curl -L -o packages/googlechrome.dmg https://www.dropbox.com/s/5we7xp1szgw5ioq/googlechrome.dmg
@@ -161,6 +155,7 @@ if [ ! -f .step4 ]; then
   cp "settings/Package Control.sublime-settings" "${HOME}/Library/Application Support/Sublime Text 3/Packages/User"
   open "/Applications/Sublime Text.app"
   echo "Allow Sublime Text to install all packages, then quit it"
+  read -r
   cp "settings/Preferences.sublime-settings" "${HOME}/Library/Application Support/Sublime Text 3/Packages/User/"
 
   # App Store

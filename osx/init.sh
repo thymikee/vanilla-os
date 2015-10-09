@@ -19,7 +19,7 @@ if [ ! -f .step0 ]; then
 fi
 
 # Enable TRIM
-if [ ! -f .step1 ]; then
+function install_trim_enabler {
   echo "Installing TRIM Enabler..."
   curl -L -o packages/TrimEnabler.dmg https://www.dropbox.com/s/r1z1vt8xy1qey9h/TrimEnabler.dmg
   hdiutil mount packages/TrimEnabler.dmg
@@ -30,6 +30,15 @@ if [ ! -f .step1 ]; then
   read -r
   touch .step1
   sudo reboot
+}
+
+if [ ! -f .step1 ]; then
+  read -e -p "Install TRIM Enabler? [y]es or [n]o " yn
+  case $yn in
+      [Yy]* ) install_trim_enabler;;
+      [Nn]* ) touch .step1;;
+      * ) echo "Please answer yes or no.";;
+  esac
 fi
 
 # Enable OSX developer extensions
@@ -73,7 +82,7 @@ if [ ! -f .step3 ]; then
 
   echo "Installing dotfiles..."
   rm -rf ~/.ackrc ~/.aliases ~/.exports ~/.extra ~/.fun ~/.functions ~/.gitconfig ~/.gitignore ~/.inputrc ~/.osx ~/.profile.osx.d ~/.screenrc ~/.tmux.conf ~/.vim ~/.vimrc ~/.zshrc ~/.dotfiles
-  git clone https://github.com/ajgon/dotfiles.git ~/.dotfiles
+  git clone git@github.com:thymikee/dotfiles.git ~/.dotfiles
   cd ~/.dotfiles || exit
   /bin/zsh -c './bootstrap --new-setup'
   cd "${CURRENT_DIR}" || exit
@@ -84,16 +93,6 @@ fi
 
 # Install apps
 if [ ! -f .step4 ]; then
-  echo "Installing Alfred..."
-  curl -L -o packages/alfred2.zip https://www.dropbox.com/s/humo6ewd7ylj2es/alfred2.zip
-  unzip packages/alfred2.zip -d packages
-  cp -r "packages/Alfred 2.app" /Applications/
-  # Disable spotlight GUI (without indexing)
-  sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
-  echo "Change Alfred 2 shortcut, enable clipboard history, activate powerpack and press Enter"
-  open "/Applications/Alfred 2.app"
-  read -r
-
   echo "Installing Google Chrome..."
   curl -L -o packages/googlechrome.dmg https://www.dropbox.com/s/5we7xp1szgw5ioq/googlechrome.dmg
   hdiutil mount "packages/googlechrome.dmg"
@@ -157,6 +156,7 @@ if [ ! -f .step4 ]; then
   echo "Allow Sublime Text to install all packages, then quit it"
   read -r
   cp "settings/Preferences.sublime-settings" "${HOME}/Library/Application Support/Sublime Text 3/Packages/User/"
+  ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
 
   # App Store
   for app in divvy todoist 1Password ReadKit "Tube Controller" Sip CleanMyDrive "The Unarchiver" Twitter; do
